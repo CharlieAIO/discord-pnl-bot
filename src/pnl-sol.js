@@ -84,7 +84,7 @@ async function getSwapDetails(txSignature, tokenAddress, userWallet) {
 }
 
 async function getUserTokenData(userWalletAddress, tokenAddress, dexData){
-    const { solPriceUSD: usdPrice, priceNative: priceNative, baseToken:{symbol} } = dexData
+    const { quotePrice: usdPrice, priceNative: priceNative, baseToken:{symbol} } = dexData
 
 
     let totalSpent = 0
@@ -130,6 +130,17 @@ async function getUserTokenData(userWalletAddress, tokenAddress, dexData){
     const totalProfitUSD = (totalProfit * usdPrice).toFixed(2);
     const totalInvestment = totalSpent + totalFees;
     const roiPercentage = ((totalProfit / totalInvestment) * 100).toFixed(2);
+
+    console.log({
+        usdPrice,
+        totalSpent: totalSpent.toFixed(4).toString(),
+        totalSales: totalSales.toFixed(4).toString(),
+        totalFees: totalFees.toFixed(4).toString(),
+        totalProfit: totalProfit.toString(),
+        roi: roiPercentage.toString(),
+        usdProfit: totalProfitUSD,
+        tokenSymbol: symbol
+    })
 
     return {
         totalSpent: totalSpent.toFixed(4).toString(),
